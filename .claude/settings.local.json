@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv \"images/New/WhatsApp Image 2026-03-19 at 8.53.40 AM.jpeg\" images/lesley-keast1.jpg)",
+      "Bash(mv \"images/New/WhatsApp Image 2026-03-19 at 8.53.41 AM \\(1\\).jpeg\" images/lesley-keast2.jpg)",
+      "Bash(mv \"images/New/WhatsApp Image 2026-03-19 at 8.53.41 AM \\(2\\).jpeg\" images/lesley-keast3.jpg)",
+      "Bash(mv \"images/New/WhatsApp Image 2026-03-19 at 8.53.41 AM.jpeg\" images/lesley-keast4.jpg)"
+    ]
+  }
+}
