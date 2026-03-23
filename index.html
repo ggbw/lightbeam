@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Light Beam Project</title>
+  <meta name="description" content="The Light Beam Project connects international volunteers with children at DIKSHA School, India, to spark curiosity, digital literacy, and a love of learning.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sun: #F5A623;
+      --sun-light: #FFF3D6;
+      --sky: #1A3A5C;
+      --sky-mid: #2D5F8A;
+      --sky-light: #EEF5FB;
+      --earth: #E8D5B7;
+      --text: #1C1C2E;
+      --text-muted: #5A6478;
+      --white: #FFFFFF;
+      --accent: #E85D26;
+      --section-gap: 96px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo .logo-img {
+      width: 42px; height: 42px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #fff;
+    }
+    .nav-logo span {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--sky);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .nav-links a:hover { color: var(--sky); }
+    .nav-links .cta-btn {
+      background: var(--sun);
+      color: var(--sky) !important;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-links .cta-btn:hover { background: var(--accent); color: white !important; transform: translateY(-1px); }
+
+    .nav-hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .nav-hamburger span { width: 24px; height: 2px; background: var(--sky); border-radius: 2px; }
+
+    /* ─── HERO ─────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--sky) 0%, var(--sky-mid) 55%, #1a6fa0 100%);
+      display: flex; align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(245,166,35,0.18) 0%, transparent 60%);
+    }
+    /* decorative circles */
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.07);
+      top: -100px; right: -100px;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 64px;
+      max-width: 1200px; margin: 0 auto;
+      padding: 80px 48px;
+    }
+    .hero-text .eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--sun);
+      margin-bottom: 20px;
+    }
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 5vw, 66px);
+      font-weight: 900;
+      line-height: 1.08;
+      color: white;
+      margin-bottom: 24px;
+    }
+    .hero-text h1 em { font-style: normal; color: var(--sun); }
+    .hero-text p {
+      font-size: 18px; line-height: 1.7;
+      color: rgba(255,255,255,0.8);
+      font-weight: 300;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--sun); color: var(--sky);
+      font-weight: 700; font-size: 15px;
+      padding: 14px 32px;
+      border-radius: 100px; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(245,166,35,0.4);
+      display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,166,35,0.5); }
+    .btn-outline {
+      background: transparent; color: white;
+      font-weight: 500; font-size: 15px;
+      padding: 13px 32px;
+      border-radius: 100px; text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.4);
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+    .hero-image-wrap {
+      position: relative;
+    }
+    .hero-image-wrap .img-frame {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+      aspect-ratio: 4/3;
+    }
+    .hero-image-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: -24px; left: -24px;
+      background: var(--sun);
+      color: var(--sky);
+      border-radius: 16px;
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 1.4;
+      box-shadow: 0 8px 24px rgba(245,166,35,0.4);
+    }
+    .hero-badge strong { display: block; font-size: 28px; font-family: 'Playfair Display', serif; }
+
+    .hero-scroll {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.5); font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      animation: scrollLine 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollLine { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:0.3;transform:scaleY(0.5)} }
+
+    /* ─── STATS BAR ─────────────────────────────── */
+    #stats {
+      background: var(--sky);
+      padding: 48px;
+    }
+    .stats-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    .stat-item { text-align: center; }
+    .stat-item .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px; font-weight: 900;
+      color: var(--sun);
+      display: block;
+    }
+    .stat-item .label {
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      letter-spacing: 0.5px; font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* ─── SECTIONS COMMON ─────────────────────────────── */
+    section { padding: var(--section-gap) 48px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--sun);
+      display: block; margin-bottom: 16px;
+    }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 700; line-height: 1.15;
+      color: var(--sky);
+      margin-bottom: 20px;
+    }
+    .section-intro {
+      font-size: 17px; line-height: 1.75;
+      color: var(--text-muted);
+      font-weight: 300;
+      max-width: 640px;
+    }
+
+    .max-w { max-width: 1200px; margin: 0 auto; }
+
+    /* ─── ABOUT ─────────────────────────────── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .about-text .section-intro { margin-bottom: 32px; }
+    .about-text p { font-size: 16px; line-height: 1.8; color: var(--text-muted); margin-bottom: 16px; }
+    .about-text p:last-of-type { margin-bottom: 32px; }
+
+    .about-imgs {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; position: relative;
+    }
+    .about-imgs .img-tall {
+      grid-row: span 2;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    }
+    .about-imgs .img-sq {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      aspect-ratio: 1;
+    }
+    .about-imgs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .about-imgs .img-tall img { height: 100%; }
+
+    /* ─── HOW IT WORKS ─────────────────────────────── */
+    #how {
+      background: var(--sky-light);
+    }
+    .how-header { text-align: center; margin-bottom: 64px; }
+    .how-header .section-intro { margin: 0 auto; }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .step-card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px 36px;
+      position: relative;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .step-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px; font-weight: 900;
+      color: var(--sun-light); line-height: 1;
+      position: absolute; top: 24px; right: 28px;
+    }
+    .step-icon {
+      width: 56px; height: 56px; background: var(--sky);
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px; font-size: 24px;
+    }
+    .step-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--sky); margin-bottom: 12px;
+    }
+    .step-card p { font-size: 15px; line-height: 1.7; color: var(--text-muted); }
+
+    /* ─── BEAMERS / TEAM ─────────────────────────────── */
+    #beamers { background: var(--white); }
+    .beamers-header { margin-bottom: 64px; }
+    .beamers-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .beamer-card {
+      border-radius: 24px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: white;
+    }
+    .beamer-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.13); }
+    .beamer-photo {
+      height: 200px;
+      overflow: hidden;
+      background: var(--sky-light);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .beamer-photo img {
+      width: auto; height: auto;
+      max-width: 100%; max-height: 200px;
+      object-fit: contain; object-position: center top;
+      display: block; transition: transform 0.5s;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+    .beamer-card:hover .beamer-photo img { transform: scale(1.03); }
+    .beamer-info { padding: 24px; }
+    .beamer-info h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--sky); margin-bottom: 6px; }
+    .beamer-info .role { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--sun); margin-bottom: 12px; display: block; }
+    .beamer-info p { font-size: 14px; line-height: 1.7; color: var(--text-muted); }
+
+    /* coordinator card is wider */
+    .beamer-card.coordinator { grid-column: 1 / -1; display: grid; grid-template-columns: 220px 1fr; }
+    .beamer-card.coordinator .beamer-photo { height: auto; min-height: 260px; padding-top: 24px; align-items: flex-start; }
+    .beamer-card.coordinator .beamer-photo img { max-height: 260px; }
+    .beamer-card.coordinator .beamer-info { padding: 40px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .beamer-card.coordinator .beamer-info h3 { font-size: 28px; }
+    .beamer-card.coordinator .beamer-info p { font-size: 15px; max-width: 600px; }
+
+    /* extra beamers strip */
+    .beamers-more {
+      margin-top: 32px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .beamer-mini {
+      background: var(--sky-light);
+      border-radius: 20px;
+      padding: 28px 24px;
+      transition: transform 0.3s;
+    }
+    .beamer-mini:hover { transform: translateY(-3px); }
+    .beamer-mini h4 { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--sky); margin-bottom: 4px; }
+    .beamer-mini .loc { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sun); margin-bottom: 10px; display: block; }
+    .beamer-mini p { font-size: 13px; line-height: 1.65; color: var(--text-muted); }
+
+    /* ─── GALLERY ─────────────────────────────── */
+    #gallery { background: var(--sky); overflow: hidden; }
+    .gallery-header { margin-bottom: 48px; }
+    .gallery-header .section-heading { color: white; }
+    .gallery-header .section-intro { color: rgba(255,255,255,0.7); }
+    .gallery-masonry {
+      columns: 4;
+      column-gap: 16px;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%; display: block;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,58,92,0.7), transparent);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end; padding: 16px;
+    }
+    .gallery-item:hover .overlay { opacity: 1; }
+    .gallery-item .overlay span { color: white; font-size: 13px; font-weight: 500; }
+
+    /* lightbox */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    }
+    #lightbox.active { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 12px; box-shadow: 0 32px 80px rgba(0,0,0,0.6); }
+    #lightbox-close {
+      position: absolute; top: 24px; right: 24px;
+      color: white; font-size: 32px; cursor: pointer;
+      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: rgba(255,255,255,0.1);
+      transition: background 0.2s;
+    }
+    #lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+    /* ─── TESTIMONIAL ─────────────────────────────── */
+    #testimonial {
+      background: linear-gradient(135deg, var(--sun-light) 0%, #fff 60%);
+    }
+    .testimonial-inner {
+      display: grid; grid-template-columns: 1fr 480px;
+      gap: 80px; align-items: center;
+    }
+    .quote-block {
+      position: relative;
+    }
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 160px; line-height: 0.8;
+      color: var(--sun); opacity: 0.4;
+      display: block; margin-bottom: -24px;
+      user-select: none;
+    }
+    .quote-block blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      line-height: 1.6;
+      color: var(--sky);
+      font-style: italic;
+      font-weight: 400;
+      margin-bottom: 32px;
+    }
+    .quote-attribution {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .quote-attribution img {
+      width: 56px; height: 56px;
+      border-radius: 50%; object-fit: cover; object-position: top;
+      border: 3px solid var(--sun);
+    }
+    .quote-attribution .name { font-weight: 700; color: var(--sky); font-size: 15px; }
+    .quote-attribution .title { font-size: 13px; color: var(--text-muted); }
+
+    .testimonial-img {
+      border-radius: 28px; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.15);
+    }
+    .testimonial-img img { width: 100%; height: 380px; object-fit: cover; display: block; }
+
+    /* ─── SOLE SECTION ─────────────────────────────── */
+    #sole {
+      background: var(--white);
+    }
+    .sole-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .sole-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .sole-imgs .img-wrap { border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+    .sole-imgs .img-wrap.tall { grid-row: span 2; }
+    .sole-imgs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .sole-text .section-intro { margin-bottom: 24px; }
+    .sole-text p { font-size: 16px; line-height: 1.8; color: var(--text-muted); margin-bottom: 16px; }
+    .highlight-box {
+      background: var(--sky-light);
+      border-left: 4px solid var(--sky);
+      border-radius: 0 16px 16px 0;
+      padding: 20px 24px;
+      margin-top: 24px;
+    }
+    .highlight-box p { font-size: 14px; color: var(--sky); font-style: italic; margin: 0; }
+
+    /* ─── DONATE ─────────────────────────────── */
+    #donate {
+      background: linear-gradient(160deg, var(--sky) 0%, #0d2a45 100%);
+      text-align: center;
+    }
+    .donate-inner { max-width: 760px; margin: 0 auto; }
+    .donate-inner .section-heading { color: white; text-align: center; margin-bottom: 20px; }
+    .donate-inner p { color: rgba(255,255,255,0.75); font-size: 17px; line-height: 1.7; margin-bottom: 40px; font-weight: 300; }
+    .donate-details {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 36px 40px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+    .donate-details h4 {
+      color: var(--sun); font-size: 12px; letter-spacing: 3px;
+      text-transform: uppercase; margin-bottom: 20px; font-weight: 700;
+    }
+    .bank-row {
+      display: grid; grid-template-columns: 160px 1fr;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+      align-items: center;
+    }
+    .bank-row:last-child { border-bottom: none; }
+    .bank-row .k { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; }
+    .bank-row .v { font-size: 15px; color: white; font-weight: 500; }
+    .donate-contact { color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 20px; }
+    .donate-contact a { color: var(--sun); text-decoration: none; }
+    .donate-contact a:hover { text-decoration: underline; }
+
+    /* ─── CONTACT ─────────────────────────────── */
+    #contact { background: var(--sky-light); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: start;
+    }
+    .contact-info h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--sky); margin-bottom: 16px; }
+    .contact-info p { font-size: 16px; line-height: 1.75; color: var(--text-muted); margin-bottom: 32px; }
+    .contact-item { display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start; }
+    .contact-icon { width: 44px; height: 44px; background: var(--sky); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .contact-item .details .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--sun); margin-bottom: 4px; }
+    .contact-item .details a, .contact-item .details span { font-size: 15px; color: var(--sky); text-decoration: none; font-weight: 500; }
+    .contact-item .details a:hover { text-decoration: underline; }
+
+    .contact-form { background: white; border-radius: 24px; padding: 40px; box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; color: var(--sky); margin-bottom: 8px; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; border: 2px solid #E5EAF0; border-radius: 12px;
+      padding: 13px 16px; font-family: 'DM Sans', sans-serif; font-size: 15px;
+      color: var(--text); background: var(--sky-light);
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none; border-color: var(--sky-mid); background: white;
+    }
+    .form-group textarea { min-height: 120px; }
+    .form-submit {
+      width: 100%; background: var(--sky); color: white;
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700;
+      padding: 15px; border: none; border-radius: 12px; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .form-submit:hover { background: var(--sky-mid); transform: translateY(-1px); }
+
+    /* ─── FOOTER ─────────────────────────────── */
+    footer {
+      background: #0d1f35;
+      color: rgba(255,255,255,0.6);
+      padding: 48px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+    .footer-brand p {
+      font-size: 14px; line-height: 1.7; margin-top: 16px; margin-bottom: 24px;
+    }
+    .footer-col h5 {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--sun);
+      margin-bottom: 20px;
+    }
+    .footer-col a {
+      display: block; font-size: 14px; color: rgba(255,255,255,0.6);
+      text-decoration: none; margin-bottom: 10px; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: white; }
+    .footer-bottom {
+      max-width: 1200px; margin: 40px auto 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 28px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px;
+    }
+    .footer-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 700;
+      color: white;
+    }
+
+    /* ─── ANIMATIONS ─────────────────────────────── */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+      .hero-text p { margin: 0 auto 40px; }
+      .hero-btns { justify-content: center; }
+      .hero-badge { bottom: -16px; left: 16px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; }
+      .testimonial-inner { grid-template-columns: 1fr; }
+      .sole-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .beamer-card.coordinator { grid-template-columns: 1fr; }
+      .beamers-more { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      :root { --section-gap: 64px; }
+      section { padding: var(--section-gap) 24px; }
+      nav { padding: 14px 24px; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: white; justify-content: center; align-items: center; gap: 28px; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 18px; }
+      .nav-hamburger { display: flex; }
+      .beamers-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .gallery-masonry { columns: 2; }
+      .beamers-more { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      #stats { padding: 40px 24px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <img src="images/logo.png" alt="The Light Beam Project Logo" class="logo-img">
+    <span>The Light Beam Project</span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#beamers">Beamers</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#donate">Donate</a></li>
+    <li><a href="#contact" class="cta-btn">Volunteer</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleNav()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text fade-up">
+      <img src="images/logo.png" alt="The Light Beam Project" style="width:100px;height:100px;object-fit:contain;border-radius:50%;background:#fff;margin-bottom:24px;display:block;">
+      <span class="eyebrow">DIKSHA School · Gurugram, India</span>
+      <h1>Lighting Up <em>Young Minds</em> Across the World</h1>
+      <p>International volunteers connect with children at DIKSHA School online each week — sparking curiosity, digital literacy, and a lifelong love of discovery.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">Become a Beamer</a>
+        <a href="#about" class="btn-outline">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-image-wrap fade-up" style="transition-delay:0.2s">
+      <div class="img-frame">
+        <img src="images/gallery05.jpg" alt="Children in a Beamer session at DIKSHA School">
+      </div>
+      <div class="hero-badge">
+        <strong>6+</strong>
+        Years of <br>Brightening Lives
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-item fade-up">
+      <span class="num">150+</span>
+      <span class="label">Children Reached<br>Every Week</span>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:0.1s">
+      <span class="num">20+</span>
+      <span class="label">Volunteer Beamers<br>Worldwide</span>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:0.2s">
+      <span class="num">6</span>
+      <span class="label">Years of<br>Weekly Sessions</span>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:0.3s">
+      <span class="num">10+</span>
+      <span class="label">Countries<br>Represented</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="max-w about-grid">
+    <div class="about-text fade-up">
+      <span class="section-label">About the Project</span>
+      <h2 class="section-heading">Connecting the World to Children Who Need It Most</h2>
+      <p class="section-intro">The Light Beam Project is a registered NGO that reaches out to children with limited educational resources at DIKSHA School near New Delhi, India.</p>
+      <p>Children from Grade 2 (age 6) to Grade 11 (age 17) meet 'Beamers' online each week to explore the internet, develop their digital literacy and get connected to the world on a very personal level. This provides the children with the opportunity to experience worlds far removed from their own.</p>
+      <p>In a session, children investigate news, technology, culture, animals, and fascinating parts of the world — the sky really is the limit. Beamers bring themes with provoking questions, but the children are free to explore as they see fit and report back. In this way, the young people become their own teachers.</p>
+      <p>DIKSHA is an NGO running a non-profit school in Palam Vihar, Gurugram, that provides free and quality education to children from low-income families, along with a nutritious mid-day meal, uniforms, shoes, and books.</p>
+      <a href="#how" class="btn-primary" style="font-size:14px;padding:12px 28px;">See How It Works</a>
+    </div>
+    <div class="about-imgs fade-up" style="transition-delay:0.15s">
+      <div class="img-tall">
+        <img src="images/gallery01.jpg" alt="Students exploring on laptop at DIKSHA School">
+      </div>
+      <div class="img-sq">
+        <img src="images/gallery03.jpg" alt="Students engaged in learning">
+      </div>
+      <div class="img-sq">
+        <img src="images/gallery04.jpg" alt="Children in a group session">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="max-w">
+    <div class="how-header fade-up">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-heading" style="text-align:center">Every Session is an Adventure</h2>
+      <p class="section-intro">Sessions are never the same — there's fun, games, stories, crafts, and curiosity-led exploration. Whatever the Beamer feels the children would connect to, it becomes the session.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card fade-up">
+        <span class="step-num">01</span>
+        <div class="step-icon">🌐</div>
+        <h3>Connect Online</h3>
+        <p>Volunteer Beamers from around the globe join children at DIKSHA School via video call for a 30-minute session — no passport required.</p>
+      </div>
+      <div class="step-card fade-up" style="transition-delay:0.1s">
+        <span class="step-num">02</span>
+        <div class="step-icon">🔍</div>
+        <h3>Explore & Discover</h3>
+        <p>The Beamer poses an inspiring question or theme. Children investigate, search the web, discuss, and share — learning to teach themselves through guided curiosity.</p>
+      </div>
+      <div class="step-card fade-up" style="transition-delay:0.2s">
+        <span class="step-num">03</span>
+        <div class="step-icon">💡</div>
+        <h3>Report Back & Shine</h3>
+        <p>Students present their findings, sparking discussion and building confidence, communication, teamwork and critical thinking skills along the way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLE INSPIRATION -->
+<section id="sole">
+  <div class="max-w sole-grid">
+    <div class="sole-imgs fade-up">
+      <div class="img-wrap tall">
+        <img src="images/gallery06.jpg" alt="Students collaborating on a laptop" style="height:100%">
+      </div>
+      <div class="img-wrap">
+        <img src="images/gallery02.jpg" alt="Children browsing the internet" style="aspect-ratio:1;width:100%">
+      </div>
+      <div class="img-wrap">
+        <img src="images/gallery08.jpg" alt="Engaged student group" style="aspect-ratio:1;width:100%">
+      </div>
+    </div>
+    <div class="sole-text fade-up" style="transition-delay:0.15s">
+      <span class="section-label">Our Inspiration</span>
+      <h2 class="section-heading">Inspired by the SOLE Approach</h2>
+      <p class="section-intro">The project is inspired by the pioneering work of Professor Sugata Mitra, who created the concept of Self Organised Learning Environments (SOLE).</p>
+      <p>In 2017, the school began offering these investigative sessions under the name of the Granny Cloud, with support from the Concern India Foundation. The Light Beam Project has since taken over and grown the mission significantly.</p>
+      <p>Prof. Mitra's landmark TED Talk "Let's Build a School in the Cloud" revealed that groups of kids could learn to navigate computers and the internet entirely by themselves — and go much further when supported by nurturing and curious adults online.</p>
+      <div class="highlight-box">
+        <p>"Children started asking each other about the function of the keys on the keyboard — which we were not supposed to tell them. Now they use the keyboard efficiently and read more, instead of just watching YouTube." — Monika Banga, Project Coordinator</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEAMERS / TEAM -->
+<section id="beamers">
+  <div class="max-w">
+    <div class="beamers-header fade-up">
+      <span class="section-label">Meet the Beamers</span>
+      <h2 class="section-heading">Volunteers Who Bring the World to the Classroom</h2>
+      <p class="section-intro" style="max-width:600px">Our Beamers are passionate individuals from across the globe who give their time and enthusiasm to spark the imaginations of children at DIKSHA.</p>
+    </div>
+    <div class="beamers-grid">
+      <!-- Coordinator -->
+      <div class="beamer-card coordinator fade-up">
+        <div class="beamer-photo">
+          <img src="images/monica.png" alt="Monika Banga" width="209" height="267">
+        </div>
+        <div class="beamer-info">
+          <h3>Monika Banga</h3>
+          <span class="role">Project Co-ordinator · India</span>
+          <p>Monika has close to 15 years of proven experience in Project Management. With strong relationship and communication skills, she has been the heart of The Light Beam Project since its inception. She has a Masters in International Business from the University of Bradford, UK, and has guided the project from a few computers to a thriving global community.</p>
+          <p style="margin-top:12px;font-style:italic;color:var(--sky)">"It is the beauty of The Light Beam Project — where people meet around the world and work towards the welfare of children."</p>
+        </div>
+      </div>
+      <!-- Lesley -->
+      <div class="beamer-card fade-up" style="transition-delay:0.05s">
+        <div class="beamer-photo">
+          <img src="images/lesley.png" alt="Lesley" width="100" height="156">
+        </div>
+        <div class="beamer-info">
+          <h3>Lesley</h3>
+          <span class="role">Beamer · England / Spain</span>
+          <p>A long-time teacher based in Spain, Lesley loves that the children teach themselves — and often teach her! She has witnessed groups become increasingly confident using English and using humour in sessions. "Fun's an important part of our sessions!"</p>
+        </div>
+      </div>
+      <!-- Grewal -->
+      <div class="beamer-card fade-up" style="transition-delay:0.1s">
+        <div class="beamer-photo">
+          <img src="images/grewal.png" alt="Manureet Grewal" width="143" height="215">
+        </div>
+        <div class="beamer-info">
+          <h3>Manureet Grewal</h3>
+          <span class="role">Beamer · Sydney, Australia</span>
+          <p>Originally from India, Manureet lives in Sydney and brings a deep cultural connection to every session. "Their enthusiasm sparks the light for knowledge in them" — she has enjoyed every minute of her interactions with the children at DIKSHA.</p>
+        </div>
+      </div>
+      <!-- Parul -->
+      <div class="beamer-card fade-up" style="transition-delay:0.15s">
+        <div class="beamer-photo">
+          <img src="images/parul.png" alt="Parul" width="152" height="153">
+        </div>
+        <div class="beamer-info">
+          <h3>Parul</h3>
+          <span class="role">Beamer · Hong Kong</span>
+          <p>Former preschool teacher in Muscat, Bangkok and Hong Kong. Parul loves books, drawing, painting in different media, and crafts — bringing creative energy to the younger grades at DIKSHA.</p>
+        </div>
+      </div>
+      <!-- Sue -->
+      <div class="beamer-card fade-up" style="transition-delay:0.2s">
+        <div class="beamer-photo">
+          <img src="images/sue.png" alt="Sue" width="185" height="167">
+        </div>
+        <div class="beamer-info">
+          <h3>Sue</h3>
+          <span class="role">Beamer · United Kingdom</span>
+          <p>Sue has always had a deep interest in working with children. She interacts with Grade 3 children at DIKSHA, bringing her passion for watercolour painting, handicrafts, and art projects into every session.</p>
+        </div>
+      </div>
+      <!-- Phillipa -->
+      <div class="beamer-card fade-up" style="transition-delay:0.25s">
+        <div class="beamer-photo">
+          <img src="images/phillipa.png" alt="Philippa" width="153" height="170">
+        </div>
+        <div class="beamer-info">
+          <h3>Philippa</h3>
+          <span class="role">Beamer · Czech Republic</span>
+          <p>An English teacher for over 20 years, Philippa moved from the UK to Czech Republic in 2002. She loves global projects with children and young people, nature walks, and her two dogs Cookie and Snoopy.</p>
+        </div>
+      </div>
+      <!-- Afrah -->
+      <div class="beamer-card fade-up" style="transition-delay:0.3s">
+        <div class="beamer-photo">
+          <img src="images/afrah.png" alt="Afrah Farahid" width="163" height="180">
+        </div>
+        <div class="beamer-info">
+          <h3>Afrah Farahid</h3>
+          <span class="role">Beamer · Muscat, Oman</span>
+          <p>Born and raised in Sri Lanka, Afrah is a psychology student who has been interacting with DIKSHA students for over 4 years. She loves sharing the gift of knowledge, travelling, and volunteer work.</p>
+        </div>
+      </div>
+      <!-- Maria -->
+      <div class="beamer-card fade-up" style="transition-delay:0.35s">
+        <div class="beamer-photo">
+          <img src="images/maria.png" alt="Maria" width="141" height="161">
+        </div>
+        <div class="beamer-info">
+          <h3>Maria</h3>
+          <span class="role">Beamer · Lisboa, Portugal</span>
+          <p>From Lisbon, Portugal, Maria's professional background spans photography, advertising, and working with children aged 10–18. She uses her creative skills to make learning exciting and visual.</p>
+        </div>
+      </div>
+      <!-- Hiroaki -->
+      <div class="beamer-card fade-up" style="transition-delay:0.4s">
+        <div class="beamer-photo">
+          <img src="images/hiroaki.png" alt="Hiroaki Kato" width="257" height="266">
+        </div>
+        <div class="beamer-info">
+          <h3>Hiroaki Kato</h3>
+          <span class="role">Beamer · Japan</span>
+          <p>A teacher at a private tutoring school in Japan, Hiroaki joined the Granny Cloud in 2018 and found his way to The Light Beam Project. He is happy to explore Big Questions with the amazing students at DIKSHA School.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section id="testimonial">
+  <div class="max-w testimonial-inner">
+    <div class="quote-block fade-up">
+      <span class="quote-mark">"</span>
+      <blockquote>Initially when we started this program, children sat blankly in front of the computer screen and had no idea how to get started. Slowly but steadily, by challenging them with just the right questions, they got excited and curious to know the answers. They started asking each other about the keyboard — and now we are glad that they use it efficiently and read more instead of just watching videos.</blockquote>
+      <div class="quote-attribution">
+        <img src="images/monica.png" alt="Monika Banga">
+        <div>
+          <div class="name">Monika Banga</div>
+          <div class="title">Co-ordinator, The Light Beam Project</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-img fade-up" style="transition-delay:0.2s">
+      <img src="images/gallery09.jpg" alt="Students engaged during Beamer session">
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="max-w">
+    <div class="gallery-header fade-up">
+      <span class="section-label" style="color:var(--sun)">In the Classroom</span>
+      <h2 class="section-heading">A Window Into Our Sessions</h2>
+      <p class="section-intro">Real moments from real sessions — children learning, laughing, and discovering their potential through the magic of connection.</p>
+    </div>
+    <div class="gallery-masonry">
+      <div class="gallery-item" onclick="openLightbox('images/gallery01.jpg')">
+        <img src="images/gallery01.jpg" alt="Students at laptop">
+        <div class="overlay"><span>Learning Together</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery05.jpg')">
+        <img src="images/gallery05.jpg" alt="Beamer on screen">
+        <div class="overlay"><span>Beamer Session Live</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery07.jpg')">
+        <img src="images/gallery07.jpg" alt="Group of students">
+        <div class="overlay"><span>Group Discovery</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery10.jpg')">
+        <img src="images/gallery10.jpg" alt="Classroom activity">
+        <div class="overlay"><span>Hands On</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery02.jpg')">
+        <img src="images/gallery02.jpg" alt="Searching online">
+        <div class="overlay"><span>Exploring the Web</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery06.jpg')">
+        <img src="images/gallery06.jpg" alt="Excited students">
+        <div class="overlay"><span>Moments of Joy</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery11.jpg')">
+        <img src="images/gallery11.jpg" alt="Pair work">
+        <div class="overlay"><span>Peer Teaching</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery12.jpg')">
+        <img src="images/gallery12.jpg" alt="Engaged students">
+        <div class="overlay"><span>Deep Focus</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery13.jpg')">
+        <img src="images/gallery13.jpg" alt="Children at computer">
+        <div class="overlay"><span>Digital Explorers</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery14.jpg')">
+        <img src="images/gallery14.jpg" alt="Smiling students">
+        <div class="overlay"><span>Joy of Learning</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery15.jpg')">
+        <img src="images/gallery15.jpg" alt="Classroom scene">
+        <div class="overlay"><span>Always Curious</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/gallery16.jpg')">
+        <img src="images/gallery16.jpg" alt="Students together">
+        <div class="overlay"><span>Together We Learn</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <div id="lightbox-close" onclick="closeLightbox()">✕</div>
+  <img id="lightbox-img" src="" alt="Gallery image">
+</div>
+
+<!-- DONATE -->
+<section id="donate">
+  <div class="donate-inner">
+    <img src="images/logo.png" alt="The Light Beam Project" style="width:88px;height:88px;object-fit:contain;border-radius:50%;background:#fff;margin:0 auto 24px;display:block;opacity:0.85;">
+    <span class="section-label" style="text-align:center;display:block">Support the Mission</span>
+    <h2 class="section-heading">Help Us Light Up More Lives</h2>
+    <p>We need your support to educate and inspire these children so that they may have a bright future. Every donation goes directly to sustaining sessions, technology, and school resources at DIKSHA.</p>
+    <div class="donate-details">
+      <h4>Bank Transfer Details</h4>
+      <div class="bank-row"><span class="k">Account Name</span><span class="v">The Light Beam Project Incorporated</span></div>
+      <div class="bank-row"><span class="k">BSB</span><span class="v">032111</span></div>
+      <div class="bank-row"><span class="k">Account Number</span><span class="v">402519</span></div>
+      <div class="bank-row"><span class="k">Bank</span><span class="v">Westpac Banking Corporation</span></div>
+    </div>
+    <p class="donate-contact">
+      Questions about donating? Reach us at <a href="mailto:lightbeamorg@gmail.com">lightbeamorg@gmail.com</a><br>
+      📞 +61 431 131 136 &nbsp;|&nbsp; +91 99103 40790
+    </p>
+    <div style="margin-top:40px">
+      <a href="mailto:lightbeamorg@gmail.com?subject=Donation Enquiry" class="btn-primary">Get In Touch to Donate</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="max-w contact-grid">
+    <div class="contact-info fade-up">
+      <span class="section-label">Get Involved</span>
+      <h2 class="section-heading" style="font-size:clamp(28px,3vw,40px)">Become a Beamer</h2>
+      <p>All you need is 30 minutes a week, a working internet connection, and a genuine enthusiasm for children's learning. Whether you are a teacher, a retiree, a professional, or simply someone who cares — there is a place for you here.</p>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div class="details">
+          <div class="label">Email</div>
+          <a href="mailto:lightbeamorg@gmail.com">lightbeamorg@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="details">
+          <div class="label">Phone (Australia)</div>
+          <a href="tel:+61431131136">+61 431 131 136</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="details">
+          <div class="label">Phone (India)</div>
+          <a href="tel:+919910340790">+91 99103 40790</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="details">
+          <div class="label">School Location</div>
+          <span>DIKSHA School, Palam Vihar, Gurugram, India</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form fade-up" style="transition-delay:0.15s">
+      <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--sky);margin-bottom:28px">Send Us a Message</h3>
+      <form action="https://formspree.io/f/lightbeamorg@gmail.com" method="POST">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="interest">I'm interested in...</label>
+          <select id="interest" name="interest">
+            <option value="">Select an option</option>
+            <option value="volunteer">Becoming a Beamer (Volunteer)</option>
+            <option value="donate">Making a Donation</option>
+            <option value="partnership">Partnership / Collaboration</option>
+            <option value="other">General Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us a little about yourself and why you'd like to get involved..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="images/logo.png" alt="The Light Beam Project" style="width:52px;height:52px;object-fit:contain;border-radius:50%;background:#fff;flex-shrink:0;">
+        <div class="footer-logo-text">The Light Beam Project</div>
+      </div>
+      <p>A registered NGO connecting international volunteers with children at DIKSHA School, Gurugram, India — building digital literacy, curiosity, and hope, one session at a time.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="#about">About Us</a>
+      <a href="#how">How It Works</a>
+      <a href="#beamers">Our Beamers</a>
+      <a href="#gallery">Gallery</a>
+    </div>
+    <div class="footer-col">
+      <h5>Get Involved</h5>
+      <a href="#contact">Volunteer as Beamer</a>
+      <a href="#donate">Donate</a>
+      <a href="mailto:thelightbeamproject@hotmail.com">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h5>About DIKSHA</h5>
+      <a href="#sole">SOLE Approach</a>
+      <a href="#about">DIKSHA School</a>
+      <a href="#testimonial">Success Stories</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 The Light Beam Project. All rights reserved.</span>
+    <span>Inspired by the SOLE work of Prof. Sugata Mitra</span>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Hamburger
+  function toggleNav() {
+    document.getElementById('nav-links').classList.toggle('open');
+  }
+  // Close nav on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('nav-links').classList.remove('open');
+    });
+  });
+
+  // Intersection observer for fade-up
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>
